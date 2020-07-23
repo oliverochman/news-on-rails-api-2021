@@ -1,8 +1,8 @@
-require 'rails_heper'
+require 'rails_helper'
 
 RSpec.describe "GET /v1/articles", type: :request do
   describe'successfully gets articles' do
-    let!(:articles) { 3.times{ create(:articles)} }
+    let!(:articles) { 3.times{ create(:article)} }
     before do
       get'/api/v1/articles'
     end
