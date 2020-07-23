@@ -6,17 +6,23 @@ RSpec.describe "GET /v1/articles", type: :request do
     before do
       get'/api/v1/articles'
     end
+
     it'should return a 200 response' do
       expect(response).to have_http_status 200
     end
+
     it'should return article' do
       expect(response_json["articles"].count).to eq 3
     end
-    it'should return title' do
-      expect(response_json["articles"].first["title"]).to have_content "News on Rails is live"
+  end
+
+  describe'no articles has been added' do
+    before do
+      get'/api/v1/articles'
     end
-    it'should return lead' do
-      expect(response_json["articles"].first["lead"]).to have_content "Yes it is correct"
+    
+    it'should have no articles on page' do
+      expect(response_json["articles"]).to eq []
     end
   end
 end
