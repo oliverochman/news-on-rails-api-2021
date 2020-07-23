@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "GET /v1/articles", type: :request do
   describe'successfully gets articles' do
     let!(:article_1) { create(:article, title: 'The first article', lead: 'This is the first article lead') }
@@ -31,7 +29,7 @@ RSpec.describe "GET /v1/articles", type: :request do
     before do
       get'/api/v1/articles'
     end
-    
+
     it'should have no articles on page' do
       expect(response_json["articles"]).to eq []
     end
