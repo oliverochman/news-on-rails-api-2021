@@ -12,7 +12,7 @@ RSpec.describe "GET /v1/articles", type: :request do
       expect(response).to have_http_status 200
     end
 
-    it 'should return article' do
+    it 'should return articles' do
       expect(response_json["articles"].count).to eq 3
     end
 

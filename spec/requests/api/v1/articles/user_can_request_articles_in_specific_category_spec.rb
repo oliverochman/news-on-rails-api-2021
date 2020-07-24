@@ -6,7 +6,7 @@ RSpec.describe'GET /api/v1/articles/', type: :request do
   describe'successfully'do
   before do
     get "/api/v1/articles",
-    params:(category: "sports")
+    params:{category: "sports"}
   end
     it'responds with a 200 status'do
     expect(response).to have_http_status 200
