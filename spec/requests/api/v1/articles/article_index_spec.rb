@@ -24,9 +24,15 @@ RSpec.describe "GET /v1/articles", type: :request do
       expect(response_json["articles"].last["lead"]).to eq "This is the third article lead"
     end
 
-    it 'articles should have categories' do
+    it 'article 1 should have category economy' do
       expect(response_json["articles"].first["category"]).to eq "economy"
+    end
+
+    it 'article 2 should have category sports' do
       expect(response_json["articles"].second["category"]).to eq "sports"
+    end
+
+    it 'article 3 should have category lifestyle' do
       expect(response_json["articles"].last["category"]).to eq "lifestyle"
     end
   end

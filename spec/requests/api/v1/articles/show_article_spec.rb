@@ -13,6 +13,10 @@ RSpec.describe "GET /v1/articles", type: :request do
     it 'shows article content' do
       expect(response_json['article']['content']).to eq 'This is the first article content'
     end
+
+    it 'shows article category' do
+      expect(response_json['article']['category']).to eq 'sports'
+    end
   end
 
   describe 'unsuccessfully gets article' do
