@@ -1,8 +1,8 @@
 RSpec.describe "GET /v1/articles", type: :request do
   describe 'successfully gets articles' do
-    let!(:article_1) { create(:article, title: 'The first article', lead: 'This is the first article lead', category: 1) }
-    let!(:article_2) { create(:article, title: 'The second article', lead: 'This is the second article lead', category: 0) }
-    let!(:article_3) { create(:article, title: 'The third article', lead: 'This is the third article lead', category: 2) }
+    let!(:article_1) { create(:article, title: 'The first article', lead: 'This is the first article lead', category: 'economy') }
+    let!(:article_2) { create(:article, title: 'The second article', lead: 'This is the second article lead', category: 'sports') }
+    let!(:article_3) { create(:article, title: 'The third article', lead: 'This is the third article lead', category: 'lifestyle') }
 
     before do
       get '/api/v1/articles'

@@ -1,9 +1,9 @@
 class Api::V1::ArticlesController < ApplicationController
   def index
-    if params['category'].nil?
-      articles = Article.all
-    else
+    if params['category']
       articles = Article.where(category: params['category'])
+    else
+      articles = Article.all
     end
     render json: articles, each_serializer: ArticlesIndexSerializer
   rescue
