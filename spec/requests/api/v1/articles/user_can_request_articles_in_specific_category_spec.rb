@@ -30,6 +30,6 @@ RSpec.describe'GET /api/v1/articles/', type: :request do
 
     it 'responds with error message' do
       expect(response_json["message"]).to eq "Unfortunatly this category doesn't exist."
-      end
+    end
   end
 end
