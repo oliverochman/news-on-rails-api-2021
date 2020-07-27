@@ -1,5 +1,5 @@
 RSpec.describe "GET /v1/articles", type: :request do
-  let!(:article) { create(:article, title: 'The first article', lead: 'This is the first article lead', content: 'This is the first article content') }
+  let!(:article) { create(:article, title: 'The first article', lead: 'This is the first article lead', content: 'This is the first article content', category: "sports") }
 
   describe 'successfully gets article' do
     before do
@@ -12,6 +12,10 @@ RSpec.describe "GET /v1/articles", type: :request do
 
     it 'shows article content' do
       expect(response_json['article']['content']).to eq 'This is the first article content'
+    end
+
+    it 'shows article category' do
+      expect(response_json['article']['category']).to eq 'sports'
     end
   end
 

@@ -1,7 +1,13 @@
 class Api::V1::ArticlesController < ApplicationController
   def index
-    articles = Article.all
+    if params['category']
+      articles = Article.where(category: params['category'])
+    else
+      articles = Article.all
+    end
     render json: articles, each_serializer: ArticlesIndexSerializer
+  rescue
+    render json: {message: "Unfortunatly this category doesn't exist."}, status: 422
   end
   
   def show
