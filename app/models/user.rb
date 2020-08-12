@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   enum role: [ :registered, :journalist ]
+  has_many :articles, foreign_key: "journalist_id", class_name: "Article"
+
 end
