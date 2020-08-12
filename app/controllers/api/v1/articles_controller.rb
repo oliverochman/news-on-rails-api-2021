@@ -16,4 +16,20 @@ class Api::V1::ArticlesController < ApplicationController
   rescue
       render json: {message: "Unfortunatly the article you were looking for could not be found."}, status: 422
   end
+
+  def create
+    article = current_user.articles.create(article_params)
+
+    if article.persisted?
+      render json: {message: "Articles successfully created"}
+    else 
+
+    end
+   
+  end
+
+  private 
+  def article_params
+    params.permit(:title, :lead, :content, :category)
+  end
 end
