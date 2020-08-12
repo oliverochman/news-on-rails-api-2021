@@ -34,4 +34,71 @@ RSpec.describe "POST /v1/articles", type: :request do
       expect(journalist.articles.first.lead).to eq 'All hail thy scrum lord'
     end
   end
+
+  describe "unsuccessfully with " do
+    describe "invalid params " do
+      before do 
+        post '/api/v1/articles',
+        params: {
+          title: '',
+          lead: '',
+          content: '',
+          category: ''  
+        }, headers: journalist_headers 
+      end
+
+      it 'is expected to return 400 response status' do
+        expect(response).to have_http_status 400
+      end
+  
+      it 'is expected to return error message' do
+        expect(response_json['message']).to eq 'error message'
+      end
+    end
+
+    describe "non-registered user " do
+      before do 
+        post '/api/v1/articles',
+        params: {
+          title: 'Scrum Lord',
+          lead: 'All hail thy scrum lord',
+          content: 'A good scrum lord will save us',
+          category: 'lifestyle'  
+        } 
+      end
+
+      it 'is expected to return 401 response status' do
+        expect(response).to have_http_status 401
+      end
+  
+      it 'is expected to return error message' do
+        expect(response_json['message']).to eq 'you need to login in order to access'
+      end
+    end
+    
+    describe " user that is not journalist " do
+      let(:unauthorized_user) { create(:user, role: 'registered') }
+      let(:unauthorized_user_credentials) { unauthorized_user.create_new_auth_token }
+      let(:unauthorized_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(unauthorized_user_credentials) }
+
+      before do 
+        post '/api/v1/articles',
+        params: {
+          title: 'Scrum Lord',
+          lead: 'All hail thy scrum lord',
+          content: 'A good scrum lord will save us',
+          category: 'lifestyle'  
+        }, headers: unauthorized_headers
+      end
+
+      it 'is expected to return 400 response status' do
+        expect(response).to have_http_status 400
+      end
+  
+      it 'is expected to return error message' do
+        expect(response_json['message']).to eq 'error message'
+      end
+    end
+    
+  end
 end
