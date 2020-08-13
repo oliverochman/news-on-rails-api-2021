@@ -7,7 +7,6 @@ class ApplicationController < ActionController::API
     else
       errors.full_messages.to_sentence
     end
-
-    render json: { message: error_message }, status: 422
+      render json: { message: error_message }, status: 422
   end
 end

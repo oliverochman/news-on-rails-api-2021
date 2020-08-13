@@ -99,6 +99,5 @@ RSpec.describe "POST /v1/articles", type: :request do
         expect(response_json['message']).to eq 'You are not authorized to access this action'
       end
     end
-    
   end
 end
