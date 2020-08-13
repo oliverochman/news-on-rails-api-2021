@@ -6,7 +6,7 @@ RSpec.describe "POST /v1/articles", type: :request do
   let (:image) {
     {
       type: 'application/json',
-      encoder: 'name-iphone_picture.jpg:base64',
+      encoder: 'iphone_picture',
       data: 'AEwughvcvjdkshdhdcdcgWEgvcdhhd',
       extension: 'jpg'
     }
@@ -16,12 +16,13 @@ RSpec.describe "POST /v1/articles", type: :request do
     before do 
       post '/api/v1/articles',
       params: {
+        article: {
         title: 'Scrum Lord',
         lead: 'All hail thy scrum lord',
         content: 'A good scrum lord will save us',
         category: 'lifestyle',
         image: image
-         
+       } 
       }, headers: journalist_headers 
     end
     
@@ -43,7 +44,7 @@ RSpec.describe "POST /v1/articles", type: :request do
     end
 
     it 'articles is expected to have image attached' do
-      expect(Article.last.image.attached).to eq true
+      expect(Article.last.image.attached?).to eq true
     end
   end
 
@@ -55,7 +56,7 @@ RSpec.describe "POST /v1/articles", type: :request do
           title: '',
           lead: '',
           content: '',
-          category: ''  
+          category: '' 
         }, headers: journalist_headers 
       end
 
@@ -75,7 +76,8 @@ RSpec.describe "POST /v1/articles", type: :request do
           title: 'Scrum Lord',
           lead: 'All hail thy scrum lord',
           content: 'A good scrum lord will save us',
-          category: 'lifestyle'  
+          category: 'lifestyle',
+          image: image  
         } 
       end
 
@@ -99,7 +101,8 @@ RSpec.describe "POST /v1/articles", type: :request do
           title: 'Scrum Lord',
           lead: 'All hail thy scrum lord',
           content: 'A good scrum lord will save us',
-          category: 'lifestyle'  
+          category: 'lifestyle',  
+          image: image
         }, headers: unauthorized_headers
       end
 

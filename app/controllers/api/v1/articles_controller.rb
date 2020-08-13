@@ -47,4 +47,5 @@ before_action :authorize_user, only: [:create]
     if params_image.present?
       DecodeService.attach_image(params_image, article.image)
     end
+  end
 end
