@@ -1,4 +1,12 @@
 RSpec.describe "POST /v1/articles", type: :request do
+  let (:image) {
+    {
+      type: 'application/json',
+      encoder: 'name-iphone_picture.jpg:base64',
+      data: 'AEwughvcvjdkshdhdcdcgWEgvcdhhd',
+      extension: 'jpg'
+    }
+  }
   let(:journalist) { create(:user, role: 'journalist') }
   let(:journalist_credentials) { journalist.create_new_auth_token }
   let(:journalist_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(journalist_credentials) }
@@ -10,7 +18,9 @@ RSpec.describe "POST /v1/articles", type: :request do
         title: 'Scrum Lord',
         lead: 'All hail thy scrum lord',
         content: 'A good scrum lord will save us',
-        category: 'lifestyle'  
+        category: 'lifestyle',
+        image: image
+         
       }, headers: journalist_headers 
     end
     
