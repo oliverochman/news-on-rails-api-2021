@@ -1,4 +1,8 @@
 RSpec.describe "POST /v1/articles", type: :request do
+
+  let(:journalist) { create(:user, role: 'journalist') }
+  let(:journalist_credentials) { journalist.create_new_auth_token }
+  let(:journalist_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(journalist_credentials) }
   let (:image) {
     {
       type: 'application/json',
@@ -7,9 +11,6 @@ RSpec.describe "POST /v1/articles", type: :request do
       extension: 'jpg'
     }
   }
-  let(:journalist) { create(:user, role: 'journalist') }
-  let(:journalist_credentials) { journalist.create_new_auth_token }
-  let(:journalist_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(journalist_credentials) }
 
   describe 'successfully with vaild params and headers' do 
     before do 
@@ -39,6 +40,10 @@ RSpec.describe "POST /v1/articles", type: :request do
 
     it 'article is expected to be associated with journalist' do
       expect(journalist.articles.first.lead).to eq 'All hail thy scrum lord'
+    end
+
+    it 'articles is expected to have image attached' do
+      expect(Article.last.image.attached).to eq true
     end
   end
 
