@@ -1,6 +1,6 @@
 class Api::V1::ArticlesController < ApplicationController
 before_action :authenticate_user!, only: [:create]
-before_action :authorise_user, only: [:create]
+before_action :authorize_user, only: [:create]
 
   def index
     if params['category']
@@ -36,7 +36,7 @@ before_action :authorise_user, only: [:create]
     params.permit(:title, :lead, :content, :category)
   end
 
-  def authorise_user
+  def authorize_user
     unless current_user.role =='journalist'
       render json: {message: 'You are not authorized to access this action'}, status: 401
     end

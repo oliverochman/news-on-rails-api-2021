@@ -1,6 +1,3 @@
-#we want to create an article, only a journalist should be able to create an article
-#Journalist has many articles and article belong to journalist
-
 RSpec.describe "POST /v1/articles", type: :request do
   let(:journalist) { create(:user, role: 'journalist') }
   let(:journalist_credentials) { journalist.create_new_auth_token }
