@@ -24,7 +24,7 @@ before_action :authorize_user, only: [:create]
     article = current_user.articles.create(article_params)
 
     if article.persisted?
-      render json: {message: "Articles successfully created"}
+      render json: {message: "Article successfully created"}
     else 
       render_error_message(article.errors)
     end
