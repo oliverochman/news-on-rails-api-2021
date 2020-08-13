@@ -1,7 +1,8 @@
 RSpec.describe'GET /api/v1/articles/', type: :request do
-  let!(:article) { create(:article, category: 'sports') }
-  let!(:article1) { create(:article, category: 'sports') }
-  let!(:article2) { create(:article, category: 'economy') }
+  let!(:journalist){create(:user, role: 'journalist')}
+  let!(:article) { create(:article, category: 'sports', journalist_id: journalist.id) }
+  let!(:article1) { create(:article, category: 'sports', journalist_id: journalist.id) }
+  let!(:article2) { create(:article, category: 'economy', journalist_id: journalist.id) }
 
   describe'successfully'do
     before do
