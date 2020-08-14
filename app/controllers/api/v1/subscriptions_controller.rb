@@ -1,5 +1,7 @@
 class Api::V1::SubscriptionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :user_is_subscriber?
+  before_action :check_stripe_token
 
   def create
     begin
@@ -43,6 +45,17 @@ class Api::V1::SubscriptionsController < ApplicationController
       invoice = Stripe::Invoice.create({ customer: customer, subscription: subscription.id, paid: true })
       subscription.latest_invoice = invoice.id
     end
+  end
+
+  def check_stripe_token
+    if !params[:stripeToken] or params[:stripeToken].empty?
+      render_stripe_error('There was no token provided...')
+      return
+    end
+  end
+
+  def user_is_subscriber?
+    current_user.subscriber? && render_stripe_error('You are already a subscriber') and return
   end
 end
  
