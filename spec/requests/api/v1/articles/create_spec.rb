@@ -3,7 +3,7 @@ RSpec.describe "POST /v1/articles", type: :request do
   let(:journalist) { create(:user, role: 'journalist') }
   let(:journalist_credentials) { journalist.create_new_auth_token }
   let(:journalist_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(journalist_credentials) }
-  let (:image) {
+  let(:image) {
     {
       type: 'application/json',
       encoder: 'iphone_picture',
@@ -53,10 +53,12 @@ RSpec.describe "POST /v1/articles", type: :request do
       before do 
         post '/api/v1/articles',
         params: {
-          title: '',
-          lead: '',
-          content: '',
-          category: '' 
+          article: {
+            title: '',
+            lead: '',
+            content: '',
+            category: ''
+          }
         }, headers: journalist_headers 
       end
 
@@ -73,11 +75,13 @@ RSpec.describe "POST /v1/articles", type: :request do
       before do 
         post '/api/v1/articles',
         params: {
-          title: 'Scrum Lord',
-          lead: 'All hail thy scrum lord',
-          content: 'A good scrum lord will save us',
-          category: 'lifestyle',
-          image: image  
+          article: {
+            title: 'Scrum Lord',
+            lead: 'All hail thy scrum lord',
+            content: 'A good scrum lord will save us',
+            category: 'lifestyle',
+            image: image 
+          }
         } 
       end
 
@@ -98,11 +102,13 @@ RSpec.describe "POST /v1/articles", type: :request do
       before do 
         post '/api/v1/articles',
         params: {
-          title: 'Scrum Lord',
-          lead: 'All hail thy scrum lord',
-          content: 'A good scrum lord will save us',
-          category: 'lifestyle',  
-          image: image
+          article: {
+            title: 'Scrum Lord',
+            lead: 'All hail thy scrum lord',
+            content: 'A good scrum lord will save us',
+            category: 'lifestyle',  
+            image: image
+          }
         }, headers: unauthorized_headers
       end
 

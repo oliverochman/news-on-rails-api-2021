@@ -5,17 +5,17 @@ module DecodeService
     else
       image = split_base64(base64_string)
     end
-    image = split_base64(base64_string)
-    decode_data = Base64.decode64(image[:data])
+    
+    decoded_data = Base64.decode64(image[:data])
     io = StringIO.new
     io.puts(decoded_data)
     io.rewind
-
     target.attach(io: io, filename: "#{image[:encoder]}.#{image[:extension]}")
   end
 
-  private
-  def split_base64(string)
+  private 
+
+  def self.split_base64(string)
     if string =~ /^data:(.*?);(.*?),(.*)$/
       uri = {}
       uri[:type] = Regexp.last_match(1)

@@ -22,18 +22,17 @@ before_action :authorize_user, only: [:create]
 
   def create
     article = current_user.articles.create(article_params)
-
     if article.persisted? && attach_image(article)
       render json: {message: "Article successfully created"}
     else 
       render_error_message(article.errors)
     end
-   
   end
 
   private 
+
   def article_params
-    params.permit(:title, :lead, :content, :category)
+    params.require(:article).permit(:title, :lead, :content, :category)
   end
 
   def authorize_user
