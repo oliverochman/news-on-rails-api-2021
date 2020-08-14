@@ -1,16 +1,28 @@
 RSpec.describe "POST /v1/articles", type: :request do
+
   let(:journalist) { create(:user, role: 'journalist') }
   let(:journalist_credentials) { journalist.create_new_auth_token }
   let(:journalist_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(journalist_credentials) }
+  let(:image) {
+    {
+      type: 'application/json',
+      encoder: 'iphone_picture',
+      data: 'AEwughvcvjdkshdhdcdcgWEgvcdhhd',
+      extension: 'jpg'
+    }
+  }
 
   describe 'successfully with vaild params and headers' do 
     before do 
       post '/api/v1/articles',
       params: {
+        article: {
         title: 'Scrum Lord',
         lead: 'All hail thy scrum lord',
         content: 'A good scrum lord will save us',
-        category: 'lifestyle'  
+        category: 'lifestyle',
+        image: image
+       } 
       }, headers: journalist_headers 
     end
     
@@ -30,6 +42,10 @@ RSpec.describe "POST /v1/articles", type: :request do
     it 'article is expected to be associated with journalist' do
       expect(journalist.articles.first.lead).to eq 'All hail thy scrum lord'
     end
+
+    it 'articles is expected to have image attached' do
+      expect(Article.last.image.attached?).to eq true
+    end
   end
 
   describe "unsuccessfully with " do
@@ -37,10 +53,12 @@ RSpec.describe "POST /v1/articles", type: :request do
       before do 
         post '/api/v1/articles',
         params: {
-          title: '',
-          lead: '',
-          content: '',
-          category: ''  
+          article: {
+            title: '',
+            lead: '',
+            content: '',
+            category: ''
+          }
         }, headers: journalist_headers 
       end
 
@@ -57,10 +75,13 @@ RSpec.describe "POST /v1/articles", type: :request do
       before do 
         post '/api/v1/articles',
         params: {
-          title: 'Scrum Lord',
-          lead: 'All hail thy scrum lord',
-          content: 'A good scrum lord will save us',
-          category: 'lifestyle'  
+          article: {
+            title: 'Scrum Lord',
+            lead: 'All hail thy scrum lord',
+            content: 'A good scrum lord will save us',
+            category: 'lifestyle',
+            image: image 
+          }
         } 
       end
 
@@ -81,10 +102,13 @@ RSpec.describe "POST /v1/articles", type: :request do
       before do 
         post '/api/v1/articles',
         params: {
-          title: 'Scrum Lord',
-          lead: 'All hail thy scrum lord',
-          content: 'A good scrum lord will save us',
-          category: 'lifestyle'  
+          article: {
+            title: 'Scrum Lord',
+            lead: 'All hail thy scrum lord',
+            content: 'A good scrum lord will save us',
+            category: 'lifestyle',  
+            image: image
+          }
         }, headers: unauthorized_headers
       end
 

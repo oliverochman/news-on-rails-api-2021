@@ -3,4 +3,6 @@ class Article < ApplicationRecord
   enum category: [:culture, :economy, :international, :lifestyle, :local, :sports]
   belongs_to :journalist, class_name: "User"
 
+  has_one_attached :image
+
 end
