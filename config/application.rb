@@ -35,7 +35,10 @@ module NewsOnRailsApi2020
           methods: %i[get post put delete],
           expose: %w(access-token expiry token-type uid client),
           max_age: 0
-      end
+      end 
     end
+
+    config.stripe.publishable_key = Rails.application.credentials.stripe[:pk_key]
+    config.stripe.secret_key = Rails.application.credentials.stripe[:secret_key]
   end
 end
