@@ -32,7 +32,7 @@ before_action :authorize_user, only: [:create]
   private 
 
   def article_params
-    params.require(:article).permit(:title, :lead, :content, :category)
+    params.require(:article).permit(:title, :lead, :content, :category,)
   end
 
   def authorize_user
