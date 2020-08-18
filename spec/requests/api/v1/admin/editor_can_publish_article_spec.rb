@@ -7,16 +7,16 @@ RSpec.describe "PUT /admin/articles", type: :request do
   let(:journalist_credentials) { journalist.create_new_auth_token }
   let(:journalist_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(journalist_credentials) }
 
-  let!(:article) { create(:article, published: false ) }
+  let!(:article) { create(:article, published: false) }
   let!(:article_2) { create(:article) }
 
   describe "successfully" do
     before do
       put "/api/v1/admin/articles/#{article.id}", 
-        params: { 
+      params: { 
           article: { published: true } 
-        },
-       headers: editor_headers 
+      },
+      headers: editor_headers 
     end
 
     it "should return a 200 status" do
