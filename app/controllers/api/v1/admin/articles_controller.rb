@@ -36,7 +36,7 @@ class Api::V1::Admin::ArticlesController < ApplicationController
     
   def authorize_editor
     unless current_user.role == 'editor'
-      unauthorized()
+      unauthorized
     end
   end
     
