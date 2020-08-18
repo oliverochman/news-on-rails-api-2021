@@ -1,6 +1,7 @@
 class Api::V1::ArticlesController < ApplicationController
-before_action :authenticate_user!, only: [:create]
-before_action :authorize_user, only: [:create]
+before_action :authenticate_user!, only: [:create, :update]
+before_action :authorize_journalist, only: [:create]
+before_action :authorize_editor, only: [:update]
 
   def index
     if params['category']
@@ -32,7 +33,7 @@ before_action :authorize_user, only: [:create]
   def update 
     article = Article.find(params[:id])
     article.update(article_params)
-    render json: {message: "Article successfully published"}
+    render json: {message: "The article was successfully published!"}
   end 
 
   private 
@@ -41,10 +42,20 @@ before_action :authorize_user, only: [:create]
     params.require(:article).permit(:title, :lead, :content, :category, :published)
   end
 
-  def authorize_user
-    unless current_user.role =='journalist'
-      render json: {message: 'You are not authorized to access this action'}, status: 401
+  def authorize_journalist
+    unless current_user.role == 'journalist'
+      unauthorized()
     end
+  end
+
+  def authorize_editor
+    unless current_user.role == 'editor'
+      unauthorized()
+    end
+  end
+
+  def unauthorized
+    render json: {message: 'You are not authorized to access this action'}, status: 401
   end
 
   def attach_image(article)
