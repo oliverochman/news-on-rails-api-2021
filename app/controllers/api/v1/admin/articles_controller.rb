@@ -2,7 +2,12 @@ class Api::V1::Admin::ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update]
   before_action :authorize_journalist, only: [:create]
   before_action :authorize_editor, only: [:update]
-      
+  
+  def index
+    articles = Article.all.where(published: false)
+    render json: articles, each_serializer: ArticlesEditorIndexSerializer
+  end
+
   def create
     article = current_user.articles.create(article_params)
       if article.persisted? && attach_image(article)
