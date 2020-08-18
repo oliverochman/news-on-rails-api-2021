@@ -5,9 +5,9 @@ before_action :authorize_editor, only: [:update]
 
   def index
     if params['category']
-      articles = Article.where(category: params['category'])
+      articles = Article.where(category: params['category'], published: true)
     else
-      articles = Article.all
+      articles = Article.all.where(published: true)
     end
     render json: articles, each_serializer: ArticlesIndexSerializer
   rescue

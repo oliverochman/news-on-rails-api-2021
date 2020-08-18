@@ -1,8 +1,9 @@
 RSpec.describe "GET /v1/articles", type: :request do
   describe 'successfully gets articles' do
-    let!(:article_1) { create(:article, title: 'The first article', lead: 'This is the first article lead', category: 'economy') }
-    let!(:article_2) { create(:article, title: 'The second article', lead: 'This is the second article lead', category: 'sports') }
-    let!(:article_3) { create(:article, title: 'The third article', lead: 'This is the third article lead', category: 'lifestyle') }
+    let!(:article_1) { create(:article, title: 'The first article', lead: 'This is the first article lead', category: 'economy', published: true) }
+    let!(:article_2) { create(:article, title: 'The second article', lead: 'This is the second article lead', category: 'sports', published: true) }
+    let!(:article_3) { create(:article, title: 'The third article', lead: 'This is the third article lead', category: 'lifestyle', published: true) }
+    let!(:article_4) { create(:article, title: 'The fourth article', lead: 'This is the fourth article lead', category: 'lifestyle', published: false) }
 
     before do
       get '/api/v1/articles'
@@ -21,7 +22,7 @@ RSpec.describe "GET /v1/articles", type: :request do
     end
 
     it 'should return third article lead' do
-      expect(response_json["articles"].last["lead"]).to eq "This is the third article lead"
+      expect(response_json["articles"].third["lead"]).to eq "This is the third article lead"
     end
 
     it 'article 1 should have category economy' do
@@ -33,7 +34,7 @@ RSpec.describe "GET /v1/articles", type: :request do
     end
 
     it 'article 3 should have category lifestyle' do
-      expect(response_json["articles"].last["category"]).to eq "lifestyle"
+      expect(response_json["articles"].third["category"]).to eq "lifestyle"
     end
   end
 
