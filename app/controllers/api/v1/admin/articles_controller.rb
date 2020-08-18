@@ -1,11 +1,18 @@
 class Api::V1::Admin::ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update]
+  before_action :authenticate_user!
   before_action :authorize_journalist, only: [:create]
   before_action :authorize_editor, only: [:update]
   
   def index
-    articles = Article.all.where(published: false)
-    render json: articles, each_serializer: ArticlesEditorIndexSerializer
+    if current_user.role == 'editor'
+      articles = Article.all.where(published: false)
+      render json: articles, each_serializer: ArticlesEditorIndexSerializer
+    elsif current_user.role == 'journalist'
+      articles = Article.all.where(journalist_id: current_user.id)
+      render json: articles, each_serializer: ArticlesJournalistIndexSerializer
+    else
+      unauthorized
+    end
   end
 
   def create
@@ -34,8 +41,8 @@ class Api::V1::Admin::ArticlesController < ApplicationController
   end
     
   def authorize_journalist
-    unless current_user.role == 'journalist'
-      unauthorized()
+    unless current_user.role =='journalist'
+      unauthorized
     end
   end
     
