@@ -9,16 +9,14 @@ RSpec.describe "PUT /admin/articles", type: :request do
 
   let!(:article) { create(:article, category: 'sports', published: false ) }
 
-
   describe "successfully" do
-
-  before do
-    put "/api/v1/admin/articles/#{article.id}", 
-    params: { 
-      article: { published: true } 
-    },
-    headers: editor_headers 
-  end
+    before do
+      put "/api/v1/admin/articles/#{article.id}", 
+      params: { 
+        article: { published: true } 
+      },
+      headers: editor_headers 
+    end
 
     it "should return a 200 status" do
       expect(response).to have_http_status 200
