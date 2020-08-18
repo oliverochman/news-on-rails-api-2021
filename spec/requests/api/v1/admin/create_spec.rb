@@ -62,7 +62,7 @@ RSpec.describe "POST /v1/admin/articles", type: :request do
         }, headers: journalist_headers 
       end
 
-      it 'is expected to return 400 response status' do
+      it 'is expected to return 422 response status' do
         expect(response).to have_http_status 422
       end
   

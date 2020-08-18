@@ -14,8 +14,12 @@ class Api::V1::Admin::ArticlesController < ApplicationController
     
   def update 
     article = Article.find(params[:id])
-    article.update(article_params)
-    render json: {message: "The article was successfully published!"}
+    if article.published?
+      render json: {message: "This article has already been published."}, status: 422
+    else
+      article.update(article_params)
+      render json: {message: "The article was successfully published!"}
+    end
   end 
     
   private 
