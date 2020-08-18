@@ -29,10 +29,16 @@ before_action :authorize_user, only: [:create]
     end
   end
 
+  def update 
+    article = Article.find(params[:id])
+    article.update(article_params)
+    render json: {message: "Article successfully published"}
+  end 
+
   private 
 
   def article_params
-    params.require(:article).permit(:title, :lead, :content, :category,)
+    params.require(:article).permit(:title, :lead, :content, :category, :published)
   end
 
   def authorize_user
