@@ -1,4 +1,4 @@
-RSpec.describe "POST /v1/articles", type: :request do
+RSpec.describe "POST /v1/admin/articles", type: :request do
 
   let(:journalist) { create(:user, role: 'journalist') }
   let(:journalist_credentials) { journalist.create_new_auth_token }
@@ -14,7 +14,7 @@ RSpec.describe "POST /v1/articles", type: :request do
 
   describe 'successfully with vaild params and headers' do 
     before do 
-      post '/api/v1/articles',
+      post '/api/v1/admin/articles',
       params: {
         article: {
         title: 'Scrum Lord',
@@ -51,7 +51,7 @@ RSpec.describe "POST /v1/articles", type: :request do
   describe "unsuccessfully with " do
     describe "invalid params " do
       before do 
-        post '/api/v1/articles',
+        post '/api/v1/admin/articles',
         params: {
           article: {
             title: '',
@@ -73,7 +73,7 @@ RSpec.describe "POST /v1/articles", type: :request do
 
     describe "non-registered user " do
       before do 
-        post '/api/v1/articles',
+        post '/api/v1/admin/articles',
         params: {
           article: {
             title: 'Scrum Lord',
@@ -100,7 +100,7 @@ RSpec.describe "POST /v1/articles", type: :request do
       let(:unauthorized_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(unauthorized_user_credentials) }
 
       before do 
-        post '/api/v1/articles',
+        post '/api/v1/admin/articles',
         params: {
           article: {
             title: 'Scrum Lord',

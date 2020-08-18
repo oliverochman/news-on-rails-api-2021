@@ -1,4 +1,4 @@
-RSpec.describe "PUT /articles", type: :request do
+RSpec.describe "PUT /admin/articles", type: :request do
   let!(:editor) { create(:user, role: "editor")}
   let(:editor_credentials) { editor.create_new_auth_token }
   let(:editor_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(editor_credentials) }
@@ -13,7 +13,7 @@ RSpec.describe "PUT /articles", type: :request do
   describe "successfully" do
 
   before do
-    put "/api/v1/articles/#{article.id}", 
+    put "/api/v1/admin/articles/#{article.id}", 
     params: { 
       article: { published: true } 
     },
@@ -35,7 +35,7 @@ RSpec.describe "PUT /articles", type: :request do
 
   describe "unsuccessfully" do
     before do
-      put "/api/v1/articles/#{article.id}", 
+      put "/api/v1/admin/articles/#{article.id}", 
       params: { 
         article: { published: true } 
       },
