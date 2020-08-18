@@ -13,10 +13,10 @@ RSpec.describe "PUT /admin/articles", type: :request do
   describe "successfully" do
     before do
       put "/api/v1/admin/articles/#{article.id}", 
-      params: { 
-        article: { published: true } 
-      },
-      headers: editor_headers 
+        params: { 
+          article: { published: true } 
+        },
+       headers: editor_headers 
     end
 
     it "should return a 200 status" do

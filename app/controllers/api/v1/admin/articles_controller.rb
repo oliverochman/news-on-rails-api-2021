@@ -48,6 +48,6 @@ class Api::V1::Admin::ArticlesController < ApplicationController
     params_image = params[:article][:image]
       if params_image.present?
         DecodeService.attach_image(params_image, article.image)
-      end
     end
   end
+end
