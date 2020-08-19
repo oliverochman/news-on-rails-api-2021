@@ -3,6 +3,9 @@ class Api::V1::ArticlesController < ApplicationController
   def index
     if params['category']
       articles = Article.where(category: params['category'], published: true)
+    elsif params['longitude'] && params['latitude']
+      location = Geocoder.search([params['latitude'], params['longitude']])
+      articles = Article.where(location: location.first.country, published: true)
     else
       articles = Article.all.where(published: true)
     end

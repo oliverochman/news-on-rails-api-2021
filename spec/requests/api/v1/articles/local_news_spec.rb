@@ -22,9 +22,5 @@ RSpec.describe "GET /v1/articles?longitude&latitude", type: :request do
     it 'should return the correct location on articles ' do
       expect(response_json["articles"].first["location"]).to eq "Sweden"
     end
-
-    it 'should return what country it show local news from' do
-      expect(response_json["country"]).to eq "Sweden"
-    end
   end
 end
