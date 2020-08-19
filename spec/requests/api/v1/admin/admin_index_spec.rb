@@ -58,4 +58,38 @@ RSpec.describe "GET '/api/v1/admin/articles" do
       expect(response_json["articles"].second["content"]).to eq 'This is the third article content'
     end
   end
+
+  describe "non-registered user unsuccessfully gets the articles " do
+    before do 
+      get '/api/v1/admin/articles'
+    end 
+
+    it "should return a 401 status" do 
+      expect(response).to have_http_status 401
+    end
+
+    it 'is expected to return error message' do
+      expect(response_json['errors'].first).to eq 'You need to sign in or sign up before continuing.'
+    end
+  end 
+
+  describe "registered user which is not journalist/editor unsuccessfully gets the articles " do
+    let(:unauthorized_user) { create(:user, role: 'registered') }
+    let(:unauthorized_user_credentials) { unauthorized_user.create_new_auth_token }
+    let(:unauthorized_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(unauthorized_user_credentials) }
+
+    before do 
+      get '/api/v1/admin/articles',
+      headers: unauthorized_headers
+    end 
+
+    it "should return a 401 status" do 
+      expect(response).to have_http_status 401
+    end 
+
+    it 'is expected to return error message' do
+      expect(response_json['message']).to eq 'You are not authorized to access this action'
+    end
+  end
+
 end

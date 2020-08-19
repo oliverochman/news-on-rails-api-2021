@@ -92,7 +92,8 @@ RSpec.describe "POST /v1/subscriptions", type: :request do
         StripeMock.prepare_card_error(:card_declined, :new_invoice)
 
         post "/api/v1/subscriptions",
-          params: { stripeToken: valid_token }, headers: headers
+          params: { stripeToken: valid_token 
+          }, headers: headers
       end
 
       it "returns a error http code" do
@@ -116,7 +117,8 @@ RSpec.describe "POST /v1/subscriptions", type: :request do
 
       before do
         post "/api/v1/subscriptions",
-          params: { stripeToken: valid_token }, headers: subscriber_headers
+          params: { stripeToken: valid_token 
+          }, headers: subscriber_headers
       end
 
       it "returns a error http code" do
