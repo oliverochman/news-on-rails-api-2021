@@ -8,7 +8,7 @@ class Api::V1::Admin::ArticlesController < ApplicationController
       articles = Article.all.where(published: false)
       render json: articles, each_serializer: ArticlesEditorIndexSerializer
     elsif current_user.role == 'journalist'
-      articles = Article.all.where(journalist_id: current_user.id)
+      articles = current_user.articles
       render json: articles, each_serializer: ArticlesJournalistIndexSerializer
     else
       unauthorized
