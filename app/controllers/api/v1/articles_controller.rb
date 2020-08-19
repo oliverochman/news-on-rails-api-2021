@@ -17,5 +17,4 @@ class Api::V1::ArticlesController < ApplicationController
   rescue
       render json: {message: "Unfortunatly the article you were looking for could not be found."}, status: 422
   end
-
 end

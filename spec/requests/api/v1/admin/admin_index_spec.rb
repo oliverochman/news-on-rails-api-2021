@@ -12,7 +12,6 @@ RSpec.describe "GET '/api/v1/admin/articles" do
   let!(:article_3) { create(:article, title: 'The third article', content: 'This is the third article content', published: false, journalist_id: journalist.id) }
   let!(:article_4) { create(:article, title: 'The fourth article', published: false) }
   
-  
   describe 'editor successfully gets unpublished articles' do
     before do
       get '/api/v1/admin/articles',
@@ -91,5 +90,4 @@ RSpec.describe "GET '/api/v1/admin/articles" do
       expect(response_json['message']).to eq 'You are not authorized to access this action'
     end
   end
-
 end
