@@ -1,18 +1,16 @@
 RSpec.describe "GET '/api/v1/admin/articles" do
-  let!(:editor) { create(:user, role: "editor")}
-  let(:editor_credentials) { editor.create_new_auth_token }
-  let(:editor_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(editor_credentials) }
-  
   let!(:journalist) { create(:user, role: "journalist")}
-  let(:journalist_credentials) { journalist.create_new_auth_token }
-  let(:journalist_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(journalist_credentials) }
-  
+
   let!(:article_1) { create(:article, title: 'The first article', journalist_id: journalist.id) }
   let!(:article_2) { create(:article, title: 'The second article', published: false) }
   let!(:article_3) { create(:article, title: 'The third article', content: 'This is the third article content', published: false, journalist_id: journalist.id) }
   let!(:article_4) { create(:article, title: 'The fourth article', published: false) }
   
   describe 'editor successfully gets unpublished articles' do
+    let!(:editor) { create(:user, role: "editor")}
+    let(:editor_credentials) { editor.create_new_auth_token }
+    let(:editor_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(editor_credentials) }
+
     before do
       get '/api/v1/admin/articles',
       headers: editor_headers 
@@ -36,6 +34,9 @@ RSpec.describe "GET '/api/v1/admin/articles" do
   end
 
   describe 'journalist successfully gets his/her articles' do
+    let(:journalist_credentials) { journalist.create_new_auth_token }
+    let(:journalist_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(journalist_credentials) }
+
     before do
       get '/api/v1/admin/articles',
       headers: journalist_headers 
