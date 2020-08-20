@@ -24,12 +24,12 @@ RSpec.describe "GET /v1/articles", type: :request do
       get "/api/v1/articles/3"
     end
 
-  it 'responds with 422 status' do
-    expect(response).to have_http_status 422
-    end
+    it 'responds with 422 status' do
+      expect(response).to have_http_status 422
+      end
 
-  it 'responds with error message' do
-    expect(response_json["message"]).to eq 'Unfortunatly the article you were looking for could not be found.'
+    it 'responds with error message' do
+      expect(response_json["message"]).to eq 'Unfortunatly the article you were looking for could not be found.'
+      end
     end
-  end
 end

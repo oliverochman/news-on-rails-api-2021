@@ -33,11 +33,11 @@ RSpec.describe "GET /v1/articles?longitude&latitude", type: :request do
       }
     end
 
-      it 'should return a 422 response' do
+    it 'should return a 422 response' do
       expect(response).to have_http_status 422
     end
 
-     it 'should return message' do
+    it 'should return message' do
       expect(response_json["message"]).to eq "Oops, Something went wrong."
     end
   end
@@ -51,11 +51,11 @@ RSpec.describe "GET /v1/articles?longitude&latitude", type: :request do
       }
     end
 
-      it 'should return a 200 response' do
+    it 'should return a 200 response' do
       expect(response).to have_http_status 200
     end
 
-     it 'should not return any articles' do
+    it 'should not return any articles' do
       expect(response_json["articles"]).to eq []
     end
   end
