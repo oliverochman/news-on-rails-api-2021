@@ -11,7 +11,7 @@ class Api::V1::ArticlesController < ApplicationController
     end
     render json: articles, each_serializer: ArticlesIndexSerializer
   rescue
-    render json: {message: "Unfortunatly this category doesn't exist."}, status: 422
+    render json: {message: "Oops, Something went wrong."}, status: 422
   end
   
   def show
