@@ -10,13 +10,13 @@ RSpec.describe'GET /api/v1/articles/', type: :request do
       params:{category: "sports"}
     end
 
-      it 'responds with a 200 status'do
-        expect(response).to have_http_status 200
-      end
+    it 'responds with a 200 status'do
+      expect(response).to have_http_status 200
+    end
 
-      it 'should return articles with category sports' do
-        expect(response_json["articles"].count).to eq 2
-      end
+    it 'should return articles with category sports' do
+      expect(response_json["articles"].count).to eq 2
+    end
   end
 
   describe'unsuccessfully' do
@@ -30,7 +30,7 @@ RSpec.describe'GET /api/v1/articles/', type: :request do
     end
 
     it 'responds with error message' do
-      expect(response_json["message"]).to eq "Unfortunatly this category doesn't exist."
+      expect(response_json["message"]).to eq "Oops, Something went wrong."
     end
   end
 end
