@@ -59,5 +59,4 @@ RSpec.describe "GET /v1/articles?longitude&latitude", type: :request do
       expect(response_json["articles"]).to eq []
     end
   end
-
 end
