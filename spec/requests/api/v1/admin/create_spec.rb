@@ -21,7 +21,9 @@ RSpec.describe "POST /v1/admin/articles", type: :request do
         lead: 'All hail thy scrum lord',
         content: 'A good scrum lord will save us',
         category: 'lifestyle',
-        image: image
+        image: image,
+        premium: false,
+        location: 'Sweden'
        } 
       }, headers: journalist_headers 
     end
@@ -57,7 +59,9 @@ RSpec.describe "POST /v1/admin/articles", type: :request do
             title: '',
             lead: '',
             content: '',
-            category: ''
+            category: '',
+            premium: false,
+            location: 'Sweden'
           }
         }, headers: journalist_headers 
       end
@@ -80,7 +84,9 @@ RSpec.describe "POST /v1/admin/articles", type: :request do
             lead: 'All hail thy scrum lord',
             content: 'A good scrum lord will save us',
             category: 'lifestyle',
-            image: image 
+            image: image,
+            premium: false,
+            location: 'Sweden'
           }
         } 
       end
@@ -107,7 +113,9 @@ RSpec.describe "POST /v1/admin/articles", type: :request do
             lead: 'All hail thy scrum lord',
             content: 'A good scrum lord will save us',
             category: 'lifestyle',  
-            image: image
+            image: image,
+            premium: false,
+            location: 'Sweden'
           }
         }, headers: unauthorized_headers
       end

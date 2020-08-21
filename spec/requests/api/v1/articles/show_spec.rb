@@ -1,5 +1,11 @@
 RSpec.describe "GET /v1/articles", type: :request do
-  let!(:article) { create(:article, title: 'The first article', lead: 'This is the first article lead', content: 'This is the first article content', category: "sports") }
+  let!(:article) { FactoryBot.create(
+    :article, 
+    title: 'The first article', 
+    lead: 'This is the first article lead', 
+    content: 'This is the first article content', 
+    category: "sports"
+  ) }
 
   describe 'successfully gets article' do
     before do

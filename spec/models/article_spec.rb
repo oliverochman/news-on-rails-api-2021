@@ -14,6 +14,7 @@ RSpec.describe Article, type: :model do
     it { is_expected.to have_db_column :journalist_id }
     it { is_expected.to have_db_column :published }
     it { is_expected.to have_db_column :location }
+    it { is_expected.to have_db_column :premium }
   end
 
   describe 'Validations' do
@@ -21,5 +22,6 @@ RSpec.describe Article, type: :model do
     it { is_expected.to validate_presence_of :lead }
     it { is_expected.to validate_presence_of :content }
     it { is_expected.to validate_presence_of :category }
+    it { is_expected.to validate_inclusion_of(:premium).in_array([true, false])}
   end
 end
